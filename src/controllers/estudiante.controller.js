@@ -9,6 +9,20 @@ const listar = async (req, res) => {
   }
 };
 
+const obtenerPorId = async (req, res) => {
+  try {
+    const id = parseInt(req.params.id); // Obtiene el ID del parámetro de la URL y lo convierte a entero
+    const estudiante = await Estudiante.obtenerEstudiantePorId(id);
+
+    if (estudiante) {
+      res.json(estudiante);
+    } else {
+      res.status(404).json({ mensaje: 'Estudiante no encontrado' });
+    }
+  } catch (err) {
+    res.status(500).json({ error: 'Error al obtener el estudiante' });
+  }
+};
 const crear = async (req, res) => {
   try {
     const nuevo = await Estudiante.crearEstudiante(req.body);
@@ -43,5 +57,6 @@ module.exports = {
   listar,
   crear,
   eliminar,
-  actualizar
+  actualizar,
+  obtenerPorId
 };
