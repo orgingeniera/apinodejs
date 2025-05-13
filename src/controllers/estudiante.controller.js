@@ -27,8 +27,21 @@ const eliminar = async (req, res) => {
   }
 };
 
+const actualizar = async (req, res) => {
+  console.log('👉 PUT /api/estudiantes/:id llamado');
+  try {
+    const id = req.params.id;
+    const cambios = req.body;
+    await Estudiante.actualizarEstudiante(id, cambios);
+    res.json({ mensaje: 'Estudiante actualizado correctamente' });
+  } catch (err) {
+    res.status(500).json({ error: 'Error al actualizar estudiante' });
+  }
+};
+
 module.exports = {
   listar,
   crear,
-  eliminar
+  eliminar,
+  actualizar
 };

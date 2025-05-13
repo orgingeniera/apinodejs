@@ -27,9 +27,20 @@ const eliminarEstudiante = (id) => {
     });
   });
 };
+const actualizarEstudiante = (id, data) => {
+  const sql = 'UPDATE estudiantes SET nombre = ?, apellido = ?, fecha_nacimiento = ?, email = ? WHERE id = ?';
+  return new Promise((resolve, reject) => {
+    db.query(sql, [data.nombre, data.apellido, data.fecha_nacimiento, data.email, id], (err, result) => {
+      if (err) reject(err);
+      else resolve(result);
+    });
+  });
+};
+
 
 module.exports = {
   obtenerEstudiantes,
   crearEstudiante,
-  eliminarEstudiante
+  eliminarEstudiante,
+  actualizarEstudiante
 };
